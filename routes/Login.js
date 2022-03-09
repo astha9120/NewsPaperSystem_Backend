@@ -4,11 +4,25 @@ const db = require('./db')
 
 
 const SignIn = (req,res)=>{
-
+    //console.log(req.body);
+    const sql = `SELECT * FROM ${req.body.user} WHERE email='${req.body.email}' and password='${req.body.password}'`
+    const query = db.query(sql,(err,result)=>{
+        if(err){
+            console.log(err)
+            res.send("error")
+        }
+        else{
+            console.log(result)
+            if(result[0])
+                res.send("yes")
+            else
+                res.send("no")
+        }
+    })
 }
 
 const SignUp = (req,res)=>{
-        console.log(req.body);
+        //console.log(req.body);
         let data = {
             email:req.body.email,
             password:req.body.password,
@@ -17,9 +31,14 @@ const SignUp = (req,res)=>{
 
         const sql = `INSERT INTO ${req.body.user} SET ?`
         const query = db.query(sql,data,(err,result)=>{
-            if(err) throw err;
-            res.send(`${req.body.user} created`);
-            console.log(result)
+            if(err){
+                console.log(err)
+                res.send("error")
+            }
+            else{
+                res.send(`created`);
+                console.log(result);
+            }
         })
         
 }
