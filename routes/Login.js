@@ -12,11 +12,10 @@ const SignIn = (req,res)=>{
             res.send("error")
         }
         else{
-            console.log(result)
             if(result[0])
-                res.send("yes")
+                res.send(`${result[0].v_id}`)
             else
-                res.send("no")
+                res.send("error")
         }
     })
 }
