@@ -3,12 +3,12 @@ const router = express.Router();
 const db = require('./db')
 
 
-const emailref="vendor1@gmail.com"
+const emailref="vendor2@gmail.com"
 
 
 const VendorGet = (req,res) => {
         
-    const sql = `SELECT state,city FROM vendor where email="${emailref}"`;
+    const sql = `SELECT state,city,area,address,charge,phoneno FROM vendor where email="${emailref}"`;
     const query = db.query(sql,(err,result)=>{
         if(err) throw err;
         // res.json(query);
@@ -33,7 +33,7 @@ const VendorPost = (req, res) => {
     const sql = `UPDATE vendor SET ? WHERE email="${emailref}"`;
         const query = db.query(sql,data,(err,result)=>{
             if(err) throw err;
-            res.send(`Data sent`);
+            res.send("yes");
             console.log(result)
             console.log('inserted'); 
         })
