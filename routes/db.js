@@ -1,6 +1,8 @@
 const mysql = require("mysql2")
 
+
 // Database connection 
+
 const db = mysql.createConnection({
     host:'localhost',
     user:process.env.db_user,
@@ -16,3 +18,6 @@ db.connect((err)=>{
 })
 
 module.exports = db
+
+
+

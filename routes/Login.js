@@ -8,7 +8,7 @@ const SignIn = (req,res)=>{
 }
 
 const SignUp = (req,res)=>{
-        console.log(req.body);
+        
         let data = {
             email:req.body.email,
             password:req.body.password,
