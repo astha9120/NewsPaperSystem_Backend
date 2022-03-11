@@ -4,8 +4,9 @@ const bodyParser = require("body-parser");
 require('dotenv').config();
 
 const Login = require("./routes/Login")
-const VendorProfile = require("./routes/VendorProfile")
-const News = require("./routes/News")
+const VendorProfile = require("./routes/Vendor/VendorProfile")
+const News = require("./routes/Vendor/News")
+const Vendorlist = require("./routes/Ndb/Vendorlist")
 
 const app = express();
 
@@ -14,8 +15,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/',Login)
-app.use('/',VendorProfile)
-app.use('/addnews',News)
+app.use('/vendor/vendorprofile',VendorProfile)
+app.use('/vendor/addnews',News)
+app.use('/customer/vendorlist',Vendorlist)
+
 
 app.listen('4000',()=>{
     console.log("Server Started")
