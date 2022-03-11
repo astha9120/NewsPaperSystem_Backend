@@ -5,9 +5,9 @@ const db = require('./db')
 
 
 
-const VendorGet = (req,res) => {
+const ndbGet = (req,res) => {
     const id = parseInt(req.params.id);
-    const sql = `SELECT state,city,area,address,charge,phoneno,name FROM vendor where v_id=${id}`;
+    const sql = `SELECT state,city,area,address,charge,phoneno,name FROM ndb where ndb_id=${id}`;
     const query = db.query(sql,(err,result)=>{
         console.log(id);
         if(err) throw err;
@@ -20,7 +20,7 @@ const VendorGet = (req,res) => {
 
 }
 
-const VendorPost = (req, res) => {
+const ndbPost = (req, res) => {
     console.log(req.body);
 
     let data = {
@@ -31,7 +31,7 @@ const VendorPost = (req, res) => {
         name: req.body.name
     };
     const id = parseInt(req.params.id);
-    const sql = `UPDATE vendor SET ? WHERE v_id=${id}`;
+    const sql = `UPDATE ndb SET ? WHERE ndb_id=${id}`;
         const query = db.query(sql,data,(err,result)=>{
             if(err) throw err;
             res.send("yes");
@@ -41,9 +41,9 @@ const VendorPost = (req, res) => {
 }
 
 
-router.route('/profile/:id').put(VendorPost)
+router.route('/profile/:id').put(ndbPost)
 
-router.route('/:id').get(VendorGet)
+router.route('/:id').get(ndbGet)
 
 
 

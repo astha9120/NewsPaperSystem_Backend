@@ -6,6 +6,7 @@ require('dotenv').config();
 const Login = require("./routes/Login")
 const VendorProfile = require("./routes/VendorProfile")
 const News = require("./routes/News")
+const ndbProfile = require("./routes/ndbprofile")
 
 const app = express();
 
@@ -14,8 +15,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/',Login)
-app.use('/',VendorProfile)
+app.use('/vendor',VendorProfile)
 app.use('/addnews',News)
+app.use('/ndb',ndbProfile)
 
 app.listen('4000',()=>{
     console.log("Server Started")

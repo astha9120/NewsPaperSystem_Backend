@@ -4,7 +4,7 @@ const db = require('./db')
 
 
 const SignIn = (req,res)=>{
-    //console.log(req.body);
+    console.log(req.body);
     const sql = `SELECT * FROM ${req.body.user} WHERE email='${req.body.email}' and password='${req.body.password}'`
     const query = db.query(sql,(err,result)=>{
         if(err){
@@ -12,8 +12,15 @@ const SignIn = (req,res)=>{
             res.send("error")
         }
         else{
-            if(result[0])
-                res.send(`${result[0].v_id}`)
+            if(result[0]){
+                if(req.body.user==="customer")
+                    res.send(`${result[0].c_id}`)
+                else if(req.body.user==="ndb")
+                    res.send(`${result[0].ndb_id}`)
+                else if(req.body.user==="vendor")
+                    res.send(`${result[0].v_id}`)
+            }
+                
             else
                 res.send("error")
         }
