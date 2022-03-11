@@ -6,7 +6,7 @@ require('dotenv').config();
 const Login = require("./routes/Login")
 
 
-const ndbProfile = require("./routes/ndbprofile")
+const ndbProfile = require("./routes/Ndb/ndbprofile")
 const VendorProfile = require("./routes/Vendor/VendorProfile")
 const News = require("./routes/Vendor/News")
 const Vendorlist = require("./routes/Ndb/Vendorlist")
