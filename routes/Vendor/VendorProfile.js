@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const db = require('./db')
+const db = require('../db')
 
 
 
 
 const VendorGet = (req,res) => {
     const id = parseInt(req.params.id);
+    console.log("id is : "+id)
     const sql = `SELECT state,city,area,address,charge,phoneno,name FROM vendor where v_id=${id}`;
     const query = db.query(sql,(err,result)=>{
         console.log(id);
@@ -41,9 +42,9 @@ const VendorPost = (req, res) => {
 }
 
 
-router.route('/vendorprofile/:id').put(VendorPost)
-
-router.route('/:id').get(VendorGet)
+router.route('/:id')
+.put(VendorPost)
+.get(VendorGet)
 
 
 
