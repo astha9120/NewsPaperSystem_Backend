@@ -41,9 +41,9 @@ const ndbPost = (req, res) => {
 }
 
 
-router.route('/profile/:id').put(ndbPost)
-
-router.route('/:id').get(ndbGet)
+router.route('/:id')
+.put(ndbPost)
+.get(ndbGet)
 
 
 

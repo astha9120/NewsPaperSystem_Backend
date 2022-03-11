@@ -19,9 +19,9 @@ app.use(bodyParser.json());
 
 app.use('/',Login)
 app.use('/vendor',VendorProfile)
-app.use('/ndb',ndbProfile)
+app.use('/ndb/profile',ndbProfile)
 app.use('/vendor/addnews',News)
-app.use('/customer/vendorlist',Vendorlist)
+app.use('/ndb/vendorlist',Vendorlist)
 
 
 app.listen('4000',()=>{
