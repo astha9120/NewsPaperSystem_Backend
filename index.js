@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/',Login)
-app.use('/vendor',VendorProfile)
+app.use('/vendor/profile',VendorProfile)
 app.use('/ndb/profile',ndbProfile)
 app.use('/vendor/addnews',News)
 app.use('/ndb/vendorlist',Vendorlist)

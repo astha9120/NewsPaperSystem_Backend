@@ -42,9 +42,9 @@ const VendorPost = (req, res) => {
 }
 
 
-router.route('/profile/:id').put(VendorPost)
-
-router.route('/:id').get(VendorGet)
+router.route('/:id')
+.put(VendorPost)
+.get(VendorGet)
 
 
 
