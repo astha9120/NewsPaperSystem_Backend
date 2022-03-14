@@ -10,6 +10,7 @@ const ndbProfile = require("./routes/Ndb/ndbprofile")
 const VendorProfile = require("./routes/Vendor/VendorProfile")
 const News = require("./routes/Vendor/News")
 const Vendorlist = require("./routes/Ndb/Vendorlist")
+const profile = require("./routes/Customer/Profile")
 
 const app = express();
 
@@ -22,6 +23,8 @@ app.use('/vendor/profile',VendorProfile)
 app.use('/ndb/profile',ndbProfile)
 app.use('/vendor/addnews',News)
 app.use('/ndb/vendorlist',Vendorlist)
+app.use('/customer/profile',profile)
+
 
 
 app.listen('4000',()=>{
