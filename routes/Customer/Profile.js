@@ -34,7 +34,7 @@ function distance(lat1, lon1, lat2, lon2) {
     return(c * r);
   }
 
-const ndbGet = (req,res) => {
+const customerGet = (req,res) => {
     const id = parseInt(req.params.id);
     const sql = `SELECT state,city,area,address,phoneno,name FROM customer where c_id=${id}`;
     const query = db.query(sql,(err,result)=>{
@@ -70,15 +70,19 @@ const customerPost = (req, res) => {
             for(i=0;i<result.length;i++){
                 if(result[i].work_lat!=null && result[i].work_long!=null){
                     let r =  distance(result[i].work_lat,result[i].work_long,req.body.latitude,req.body.longitude)
+                    console.log(result[i].work_lat, result[i].work_long);
+                    console.log(req.body.latitude,req.body.longitude);
                     console.log(r);
-                    if(r<1.0){
+                    if(r<1){
                         allocate_ndbid = result[i].ndb_id;
                         data = { ...data, ndb_id:allocate_ndbid }
                         const sql = `UPDATE customer SET ? WHERE c_id=${id}`;
                         const query = db.query(sql,data,(err,result)=>{
                             if(err) throw err;
                             console.log(result)
-                            res.send("within work area");
+                            res.send("yes");
+                            console.log("within work area");
+
                             
                         })
                         return;
@@ -121,7 +125,7 @@ const customerPost = (req, res) => {
 
 router.route('/:id')
 .put(customerPost)
-// .get(ndbGet)
+.get(customerGet)
 
 
 
