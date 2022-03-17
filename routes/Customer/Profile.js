@@ -95,7 +95,7 @@ const customerPost = (req, res) => {
                 if(result[i].work_lat==null && result[i].work_long==null){
                     let r =  distance(result[i].latitude,result[i].longitude,req.body.latitude,req.body.longitude);
                     console.log(r);
-                    if(r<minDis && r<=5){x
+                    if(r<minDis && r<=5){
                         minDis=r;
                         allocate_ndbid=result[i].ndb_id;
                     }
