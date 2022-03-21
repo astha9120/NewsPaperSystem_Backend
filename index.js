@@ -15,6 +15,8 @@ const profile = require("./routes/Customer/Profile")
 const Home = require("./routes/Customer/Home")
 const Bill = require("./routes/Customer/Bill")
 const BillCollection = require("./routes/Ndb/BillCollection")
+const PastOrder = require("./routes/Customer/PastOrder")
+const GetOrder = require("./routes/Customer/GetOrder")
 
 const app = express();
 
@@ -34,6 +36,8 @@ app.use('/customer/support',Support)
 app.use('/customer/profile',profile)
 app.use('/customer/home',Home)
 app.use('/customer/bill',Bill)
+app.use('/customer/pastorder',PastOrder)
+app.use('/customer/getorder',GetOrder)
 
 
 
