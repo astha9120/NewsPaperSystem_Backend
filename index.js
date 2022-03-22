@@ -13,6 +13,7 @@ const Vendorlist = require("./routes/Ndb/Vendorlist")
 const Support = require("./routes/Customer/Support")
 const profile = require("./routes/Customer/Profile")
 const Home = require("./routes/Customer/Home")
+const profileNext = require("./routes/Customer/ProfileNext")
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/ndb/vendorlist',Vendorlist)
 app.use('/customer/support',Support)
 app.use('/customer/profile',profile)
 app.use('/customer/home',Home)
+app.use('/customer/profilenext',profileNext)
 
 
 
