@@ -50,6 +50,8 @@ const ndbPost = (req, res) => {
         name: req.body.name,
         latitude:23.037547836304,
         longitude:72.543304443359
+        // latitude:req.body.latitude,
+        // longitude:req.body.longitude
     };
     const id = parseInt(req.params.id);
         const sql  = `SELECT v_id,latitude,longitude from vendor`
@@ -57,7 +59,7 @@ const ndbPost = (req, res) => {
             if(err) throw err;
             let i,allocate_vendorid ,minDis=Number.MAX_VALUE;
             for(i=0;i<result.length;i++){
-                let r =  distance(result[i].latitude,result[i].longitude,23.037547836304,72.543304443359)
+                let r =  distance(result[i].latitude,result[i].longitude,23.038642883301,72.559623718262)
                 if(r<minDis){
                     minDis=r;
                     allocate_vendorid = result[i].v_id
