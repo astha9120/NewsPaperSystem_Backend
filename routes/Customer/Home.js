@@ -3,16 +3,23 @@ const router = express.Router();
 const db = require('../db');
 
 const NewsPaper = (req,res)=>{
-    const sql = `SELECT * from newspaper`
+    const sql = `SELECT state,city from customer where c_id=${req.params.id}`
     const query= db.query(sql,(err,result)=>{
         if(err) throw err;
         console.log(result)
-        res.send(result)
+        let city = result[0].city
+        let state = result[0].state
+        const sql = `select distinct(newspaper.name) , newspaper.description,newspaper.n_id,newspaper.price,newspaper.scrap_price from newspaper
+        inner join service using (n_id) inner join vendor using (v_id) where vendor.state="${state}" and vendor.city="${city}"`
+        const query =  db.query(sql,(err,result)=>{
+            if(err) throw err;
+            res.send(result)
+        })
     })
 }
 
 
-router.route('')
+router.route('/:id')
 .get(NewsPaper)
 
 module.exports = router;
