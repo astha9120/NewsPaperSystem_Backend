@@ -48,6 +48,8 @@ const ndbPost = (req, res) => {
         address: req.body.address,
         phoneno:req.body.phoneno,
         name: req.body.name,
+        latitude:23.037547836304,
+        longitude:72.543304443359
         // latitude:req.body.latitude,
         // longitude:req.body.longitude
     };
