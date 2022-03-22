@@ -26,7 +26,7 @@ const customerGet = (req,res) => {
         
     // })
     const sql = `SELECT 
-                n.n_id,n.name,n.scrap_price,(n.price+v.v_charge)*30+ndb.ndb_charge as cum_price
+                n.n_id,n.name,n.scrap_price,(n.price+v.charge)*30+ndb.charge as cum_price
                 FROM newspaper n
                 JOIN service s ON s.n_id = n.n_id
                 JOIN vendor v ON v.v_id = s.v_id
