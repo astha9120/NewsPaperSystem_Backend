@@ -3,11 +3,16 @@ const router = express.Router();
 const db = require('../db');
 
 const Vendors = (req,res)=>{
-    const sql = `SELECT name,phoneno,address,area FROM vendor`
+    const sql = `SELECT state,city FROM ndb WHERE ndb_id=${req.params.id}`
     const query = db.query(sql,(err,result)=>{
-        console.log(result);
-        res.send(result)
+        console.log(result)
+        const sql = `SELECT name,phoneno,address,area FROM vendor WHERE state='${result[0].state}' and city='${result[0].city}'`
+        const query = db.query(sql,(err,result)=>{
+            console.log(result);
+            res.send(result)
+        })
     })
+   
 }
 
 const GetVendor = (req,res)=>{
@@ -28,9 +33,9 @@ const GetVendor = (req,res)=>{
 }
 
 
-router.route('')
+router.route('/:id')
 .get(Vendors)
 
-router.route('/:id')
+router.route('/allocate/:id')
 .get(GetVendor)
 module.exports = router;
