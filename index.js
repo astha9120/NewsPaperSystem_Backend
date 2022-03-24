@@ -18,6 +18,8 @@ const Bill = require("./routes/Customer/Bill")
 const BillCollection = require("./routes/Ndb/BillCollection")
 const PastOrder = require("./routes/Customer/PastOrder")
 const GetOrder = require("./routes/Customer/GetOrder")
+const Customerlist = require("./routes/Ndb/Customerlist")
+const Ndblist = require("./routes/vendor/Ndblist")
 
 const app = express();
 
@@ -28,6 +30,7 @@ app.use(bodyParser.json());
 app.use('/',Login)
 app.use('/vendor/profile',VendorProfile)
 app.use('/vendor/addnews',News)
+app.use('/vendor/ndblist',Ndblist)
 
 app.use('/ndb/profile',ndbProfile)
 app.use('/ndb/vendorlist',Vendorlist)
@@ -40,6 +43,7 @@ app.use('/customer/profilenext',profileNext)
 app.use('/customer/bill',Bill)
 app.use('/customer/pastorder',PastOrder)
 app.use('/customer/getorder',GetOrder)
+app.use('/ndb/customerlist',Customerlist)
 
 
 
