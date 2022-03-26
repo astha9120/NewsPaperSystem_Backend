@@ -11,7 +11,6 @@ const Orders = async(req,res)=>{
     })
 }
 
-
 router.route('/:id')
       .get(Orders)
 
