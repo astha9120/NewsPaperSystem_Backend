@@ -57,9 +57,9 @@ const customerPost = async(req, res) => {
     const query = db.query(sql,data,(err,result)=>{
             if(err) throw err;
     })
+
    
     let o_id;
-   
     const sql1 = `SELECT * FROM orders WHERE c_id=${req.body.id} AND scrap_service=${req.body.scrap} AND bill=${req.body.bill} AND bill_status=${req.body.billstatus}  AND  date='${req.body.date}'`
 
     // const sql1 = `SELECT o_id FROM orders WHERE c_id=${req.body.id} AND scrap_service=1 AND bill=${req.body.bill} AND bill_status=1 AND  date='2022-03-22'`
@@ -68,13 +68,13 @@ const customerPost = async(req, res) => {
         else{
             
             o_id = result[0].o_id;
-            console.log(`oid::${o_id}`);
+            //console.log(`oid::${o_id}`);
            
             const data1 = req.body.newspaper.map((e)=>{
                     return ([o_id,e.n_id])
             })
             
-                        const sql2 = `INSERT INTO order_news VALUES ? `
+              const sql2 = `INSERT INTO order_news VALUES ? `
               const query2 = db.query(sql2,[data1],(err,result)=>{
                     if(err) throw err;
                     //console.log(result)
@@ -83,6 +83,35 @@ const customerPost = async(req, res) => {
         }
     })
     
+    const sql3 = `SELECT ndb_id FROM customer WHERE c_id=${req.params.id}`
+    const query_1 = db.query(sql3,(err,result)=>{
+        console.log("ndb")
+        console.log(result[0].ndb_id)
+        req.body.newspaper.map((e)=>{
+            console.log(e.n_id)
+            const sql_1 = `SELECT count from ndb_list WHERE ndb_id=${result[0].ndb_id} and n_id=${e.n_id}`
+            const q_1  = db.query(sql_1,(err,result1)=>{
+                console.log("idsss")
+                console.log(result1)
+                if(result1.length===0){
+                    //INSERT
+                    const sql_3 = `INSERT INTO ndb_list VALUES (${result[0].ndb_id},${e.n_id},1)`
+                    const query_4 = db.query(sql_3,(err,result2)=>{
+                            console.log('insert')
+                            console.log(result2)
+                    })
+                }
+                else{
+                    const sql_2 = `UPDATE ndb_list  SET count = count+1 where ndb_id =${result[0].ndb_id} and n_id=${e.n_id}`
+                    const q_2 = db.query(sql_2,(err,result)=>{
+                        console.log("resss")
+                        console.log(result[0])
+                    })
+                }
+            })
+        })
+
+    })
     
     
 }
