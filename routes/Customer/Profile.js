@@ -63,7 +63,7 @@ const customerPost = (req, res) => {
     };
 
     const id = parseInt(req.params.id);
-        const sql  = `SELECT ndb_id,latitude,longitude,work_lat,work_long from ndb where v_id!=null and accept=1`
+        const sql  = `SELECT ndb_id,latitude,longitude,work_lat,work_long from ndb where v_id is not null and accept=1`
         const query =db.query(sql,(err,result)=>{
             if(err) throw err;
             let i,allocate_ndbid=-1 ,minDis=Number.MAX_VALUE;
