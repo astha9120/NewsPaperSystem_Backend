@@ -54,7 +54,7 @@ const ndbPost = (req, res) => {
         // longitude:req.body.longitude
     };
     const id = parseInt(req.params.id);
-        const sql  = `SELECT v_id,latitude,longitude from vendor`
+        const sql  = `SELECT v_id,latitude,longitude from vendor where accept=1`
         const query =db.query(sql,(err,result)=>{
             if(err) throw err;
             let i,allocate_vendorid ,minDis=Number.MAX_VALUE;
