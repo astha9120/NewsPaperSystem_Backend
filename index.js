@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const Support_admin = require("./routes/Admin/Support")
 const ndblist_admin = require("./routes/Admin/Ndblist")
+const vendorlist_admin = require("./routes/Admin/Vendorlist")
 
 const Login = require("./routes/Login")
 
@@ -50,6 +51,7 @@ app.use('/ndb/customerlist',Customerlist)
 
 app.use('/admin/support',Support_admin)
 app.use('/admin/ndblist',ndblist_admin)
+app.use('/admin/vendorlist',vendorlist_admin)
 
 app.listen('4000',()=>{
     console.log("Server Started")
