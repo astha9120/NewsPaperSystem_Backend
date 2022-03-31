@@ -10,7 +10,7 @@ const Bill = (req,res)=>{
                 order by latitude,longitude`
     const query = db.query(sql,(err,result)=>{
         if(err) throw err
-        console.log(result)
+        //console.log(result)
         res.send(result)
     })
 }
@@ -24,9 +24,26 @@ const updateStat = (req,res)=>{
     })
 }
 
+const BillCollected = (req,res)=>{
+    const id = req.params.id
+    const date = req.params.date;
+    console.log(date)
+
+    const sql = `select customer.name,customer.address,customer.area,orders.bill,orders.collection_date,orders.o_id from customer 
+                 inner join orders using(c_id)  where customer.ndb_id=${id} 
+                 and collection_date is not null
+                 and collection_date >= '${date}' `
+    const q = db.query(sql,(err,result)=>{
+        console.log(result)
+        res.send(result)
+    })    
+}
 
 router.route('/:id')
 .get(Bill)
 .put(updateStat)
+
+router.route('/:id/:date')
+.get(BillCollected)
 
 module.exports = router;
