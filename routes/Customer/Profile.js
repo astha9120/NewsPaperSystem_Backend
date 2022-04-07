@@ -70,8 +70,8 @@ const customerPost = (req, res) => {
             for(i=0;i<result.length;i++){
                 if(result[i].work_lat!=null && result[i].work_long!=null){
                     let r =  distance(result[i].work_lat,result[i].work_long,req.body.latitude,req.body.longitude)
-                    console.log(result[i].work_lat, result[i].work_long);
-                    console.log(req.body.latitude,req.body.longitude);
+                    //console.log(result[i].work_lat, result[i].work_long);
+                    //console.log(req.body.latitude,req.body.longitude);
                     console.log(r);
                     if(r<1){
                         allocate_ndbid = result[i].ndb_id;

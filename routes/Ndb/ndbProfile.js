@@ -48,8 +48,8 @@ const ndbPost = (req, res) => {
         address: req.body.address,
         phoneno:req.body.phoneno,
         name: req.body.name,
-        latitude:23.037547836304,
-        longitude:72.543304443359
+        latitude:23.038396606445,
+        longitude:72.606820678711
         // latitude:req.body.latitude,
         // longitude:req.body.longitude
     };
@@ -59,7 +59,7 @@ const ndbPost = (req, res) => {
             if(err) throw err;
             let i,allocate_vendorid ,minDis=Number.MAX_VALUE;
             for(i=0;i<result.length;i++){
-                let r =  distance(result[i].latitude,result[i].longitude,23.038642883301,72.559623718262)
+                let r =  distance(result[i].latitude,result[i].longitude,23.038396606445,72.606820678711)
                 if(r<minDis){
                     minDis=r;
                     allocate_vendorid = result[i].v_id

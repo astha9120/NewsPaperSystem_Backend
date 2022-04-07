@@ -54,7 +54,7 @@ const BillInfo = async(req,res)=>{
                         //console.log(result)
                         //console.log(`${ndb_id} ${ndb_charge} ${v_id} ${v_charge}`)
                         for(i=0;i<result.length;i++){
-                            result[i].price = (result[i].price+v_charge)*30 + ndb_charge - bool*result[i].scrap_price
+                            result[i].price = (result[i].price+v_charge)*30 + ndb_charge 
                         } 
                         res.send(result)
                     })

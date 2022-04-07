@@ -18,8 +18,20 @@ const NewsPaper = (req,res)=>{
     })
 }
 
+const GetNoti = ()=>{
+    const id = req.params.id;
+    const sql = `SELECT log FROM customer WHERE c_id=${id}`
+    let notifications = []
+    const q = db.query(sql,(err,result)=>{
+        if(result[0].log==1)
+            notifications.push("Newspaper has been delivered")
+    })
+}
 
 router.route('/:id')
 .get(NewsPaper)
+
+router.route('/daily/:id')
+.get(GetNoti)
 
 module.exports = router;
