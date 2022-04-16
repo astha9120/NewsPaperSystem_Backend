@@ -30,7 +30,11 @@ const VendorPost = (req, res) => {
         area: req.body.area,
         address: req.body.address,
         phoneno:req.body.phoneno,
-        name: req.body.name
+        name: req.body.name,
+        latitude:req.body.latitude,
+        longitude:req.body.longitude,
+        city:req.body.city,
+        state:req.body.state
     };
     const id = parseInt(req.params.id);
     const sql = `UPDATE vendor SET ? WHERE v_id=${id}`;

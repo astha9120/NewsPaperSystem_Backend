@@ -34,7 +34,11 @@ const GetCustomer = (req,res)=>{
             const q = db.query(sql2,(err,result2)=>{
                 console.log(result2)
                 
-
+                    if(result2.length==0){
+                        console.log("no")
+                        res.send([])
+                        return;
+                    }
                     let fi_res=[],temp=[];
                     temp.push(result2[0].name)
                     for(i=1;i<result2.length;i++){
