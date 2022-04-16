@@ -70,10 +70,10 @@ const customerPost = (req, res) => {
             for(i=0;i<result.length;i++){
                 if(result[i].work_lat!=null && result[i].work_long!=null){
                     let r =  distance(result[i].work_lat,result[i].work_long,req.body.latitude,req.body.longitude)
-                    //console.log(result[i].work_lat, result[i].work_long);
-                    //console.log(req.body.latitude,req.body.longitude);
+                    console.log(`lat : ${result[i].work_lat} long ${result[i].work_long} 
+                                 c_lat ${req.body.latitude} c_long ${req.body.longitude}`)
                     console.log(r);
-                    if(r<1){
+                    if(r<2){
                         allocate_ndbid = result[i].ndb_id;
                         data = { ...data, ndb_id:allocate_ndbid }
                         const sql = `UPDATE customer SET ? WHERE c_id=${id}`;
@@ -94,6 +94,8 @@ const customerPost = (req, res) => {
             for(i=0;i<result.length;i++){
                 if(result[i].work_lat==null && result[i].work_long==null){
                     let r =  distance(result[i].latitude,result[i].longitude,req.body.latitude,req.body.longitude);
+                    console.log(`lat : ${result[i].latitude} long ${result[i].longitude} 
+                                 c_lat ${req.body.latitude} c_long ${req.body.longitude}`)
                     console.log(r);
                     if(r<minDis && r<=5){
                         minDis=r;
@@ -104,7 +106,7 @@ const customerPost = (req, res) => {
             if(allocate_ndbid==-1){
                 console.log("not available")
                 res.send("not available")
-                return;
+                return;         
             }
 
             data = {...data,ndb_id:allocate_ndbid}

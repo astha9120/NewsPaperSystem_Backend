@@ -48,23 +48,32 @@ const ndbPost = (req, res) => {
         address: req.body.address,
         phoneno:req.body.phoneno,
         name: req.body.name,
-        latitude:23.038396606445,
-        longitude:72.606820678711
-        // latitude:req.body.latitude,
-        // longitude:req.body.longitude
+        latitude:req.body.latitude,
+        longitude:req.body.longitude,
+        city:req.body.city,
+        state:req.body.state
     };
+
     const id = parseInt(req.params.id);
         const sql  = `SELECT v_id,latitude,longitude from vendor where accept=1`
         const query =db.query(sql,(err,result)=>{
             if(err) throw err;
-            let i,allocate_vendorid ,minDis=Number.MAX_VALUE;
+            let i,allocate_vendorid=-1 ,minDis=Number.MAX_VALUE;
             for(i=0;i<result.length;i++){
-                let r =  distance(result[i].latitude,result[i].longitude,23.038396606445,72.606820678711)
-                if(r<minDis){
+                let r =  distance(result[i].latitude,result[i].longitude,req.body.latitude,req.body.longitude)
+                //console.log(`distance ${r}`)
+                if(r<minDis && r<=25){
                     minDis=r;
                     allocate_vendorid = result[i].v_id
                 }
             }
+
+            if(allocate_vendorid==-1){
+                console.log("not available")
+                res.send("not available")
+                return;        
+            }
+
             console.log("id "+allocate_vendorid+" dis "+minDis)
             data = { ...data, v_id:allocate_vendorid }
             const sql = `UPDATE ndb SET ? WHERE ndb_id=${id}`;
