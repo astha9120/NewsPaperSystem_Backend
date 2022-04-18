@@ -3,11 +3,10 @@ const router = express.Router();
 const db = require('../db');
 
 const PostSupport = (req,res)=>{
-    console.log(req.body);
-    const {name,city,newspaper,issue} = req.body;
-    const id = req.params.id
+    //console.log(req.body);
+    const {name,email,issue} = req.body;
    
-    const sql = `INSERT INTO issue (name,city,newspaper,suggestion,c_id) VALUE ('${name}','${city}','${newspaper}','${issue}',${id})`
+    const sql = `INSERT INTO issue (name,email,suggestion) VALUE ('${name}','${email}','${issue}')`
     const query = db.query(sql,(err,result)=>{
         if(err){
             console.log(err)
@@ -20,7 +19,7 @@ const PostSupport = (req,res)=>{
 }
 
 
-router.route('/:id')
+router.route('')
 .post(PostSupport)
 
 module.exports = router;
