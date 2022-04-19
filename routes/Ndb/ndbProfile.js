@@ -26,7 +26,7 @@ function distance(lat1, lon1, lat2, lon2) {
 
 const ndbGet = (req,res) => {
     const id = parseInt(req.params.id);
-    const sql = `SELECT state,city,area,address,charge,phoneno,name FROM ndb where ndb_id=${id}`;
+    const sql = `SELECT state,city,area,address,charge,phoneno,name,accept FROM ndb where ndb_id=${id}`;
     const query = db.query(sql,(err,result)=>{
         console.log(id);
         if(err) throw err;
@@ -50,8 +50,7 @@ const ndbPost = (req, res) => {
         name: req.body.name,
         latitude:req.body.latitude,
         longitude:req.body.longitude,
-        city:req.body.city,
-        state:req.body.state
+     
     };
 
     const id = parseInt(req.params.id);
