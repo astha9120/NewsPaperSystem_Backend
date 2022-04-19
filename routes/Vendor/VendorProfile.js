@@ -9,7 +9,7 @@ const db = require('../db')
 const VendorGet = (req,res) => {
     const id = parseInt(req.params.id);
     console.log("id is : "+id)
-    const sql = `SELECT state,city,area,address,charge,phoneno,name FROM vendor where v_id=${id}`;
+    const sql = `SELECT state,city,area,address,charge,phoneno,name,accept FROM vendor where v_id=${id}`;
     const query = db.query(sql,(err,result)=>{
         console.log(id);
         if(err) throw err;
@@ -33,8 +33,6 @@ const VendorPost = (req, res) => {
         name: req.body.name,
         latitude:req.body.latitude,
         longitude:req.body.longitude,
-        city:req.body.city,
-        state:req.body.state
     };
     const id = parseInt(req.params.id);
     const sql = `UPDATE vendor SET ? WHERE v_id=${id}`;

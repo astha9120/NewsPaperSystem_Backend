@@ -33,10 +33,9 @@ const Service = async(req,res)=>{
 }
 
 const NewsFromVendor = (req,res)=>{
-    //console.log(req.params);
+
     const id = parseInt(req.params.id);
-    //console.log(id)   
-     const sql = `SELECT  newspaper.name 
+    const sql = `SELECT  newspaper.n_id,newspaper.name
         FROM newspaper  
         INNER JOIN service  
         using(n_id)
@@ -46,7 +45,7 @@ const NewsFromVendor = (req,res)=>{
         if(result[0])
             res.send(result)
         else    
-            res.send("empty")
+            res.send([])
     })
 }
 
