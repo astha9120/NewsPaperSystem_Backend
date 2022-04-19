@@ -61,7 +61,6 @@ const ndbPost = (req, res) => {
             let i,allocate_vendorid=-1 ,minDis=Number.MAX_VALUE;
             for(i=0;i<result.length;i++){
                 let r =  distance(result[i].latitude,result[i].longitude,req.body.latitude,req.body.longitude)
-                //console.log(`distance ${r}`)
                 if(r<minDis && r<=25){
                     minDis=r;
                     allocate_vendorid = result[i].v_id
