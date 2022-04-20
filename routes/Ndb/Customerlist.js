@@ -118,9 +118,6 @@ router.route('/:id')
 router.route('/quantity/:id')
 .get(GetQuantity)
 
-router.route('/newspaper/:id')
-.get(GetNews)
-
 router.route('/send/:id')
 .get(SendNoti)
 
