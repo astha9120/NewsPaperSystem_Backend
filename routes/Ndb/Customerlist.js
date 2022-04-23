@@ -18,7 +18,7 @@ const GetQuantity = (req,res)=>{
 const GetCustomer = (req,res)=>{
     const id = req.params.id;
     
-    const sql = `SELECT c_id,name,address,area,city,state FROM customer WHERE ndb_id=${id}`
+    const sql = `SELECT c_id,name,address,area FROM customer WHERE ndb_id=${id}`
     const query = db.query(sql,(err,result)=>{
         if(err) throw err;
             console.log(result);

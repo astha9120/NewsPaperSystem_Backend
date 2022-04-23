@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../db');
 
 const Support = (req,res)=>{
-    const sql = `SELECT issue_id,suggestion,city,newspaper,name from issue`
+    const sql = `SELECT issue_id,suggestion,name,email from issue`
     const query= db.query(sql,(err,result)=>{
         if(err) throw err;
         console.log(result)

@@ -10,7 +10,6 @@ const Bill = (req,res)=>{
                 order by latitude,longitude`
     const query = db.query(sql,(err,result)=>{
         if(err) throw err
-        //console.log(result)
         res.send(result)
     })
 }
