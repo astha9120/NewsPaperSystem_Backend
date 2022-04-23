@@ -105,7 +105,9 @@ const GetNews = (req,res)=>{
 
 const SendNoti = (req,res)=>{
     const id = req.params.id;
-    const sql = `UPDATE customer SET log=1 WHERE ndb_id=${id}`
+    const list = req.body.list;
+    console.log(list)
+    const sql = `UPDATE customer SET log=1 WHERE ndb_id=${id} and c_id in (${list})`
     const q = db.query(sql,(err,result)=>{
         console.log(result)
         res.send("Yes")
@@ -119,6 +121,6 @@ router.route('/quantity/:id')
 .get(GetQuantity)
 
 router.route('/send/:id')
-.get(SendNoti)
+.post(SendNoti)
 
 module.exports = router;
