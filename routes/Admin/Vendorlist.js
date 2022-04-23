@@ -13,6 +13,7 @@ const Vendorlist = (req,res)=>{
     })
 }
 
+
 const changeStatus = (req,res)=>{
     const id = parseInt(req.params.id);
     const sql = `UPDATE vendor SET accept = 1 WHERE v_id=${id}`
