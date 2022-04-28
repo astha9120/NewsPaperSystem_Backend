@@ -6,7 +6,7 @@ const Vendors = (req,res)=>{
     const sql = `SELECT state,city FROM ndb WHERE ndb_id=${req.params.id}`
     const query = db.query(sql,(err,result)=>{
         console.log(result)
-        const sql = `SELECT name,phoneno,address,area FROM vendor WHERE state='${result[0].state}' and city='${result[0].city}'`
+        const sql = `SELECT name,phoneno,address,area FROM vendor WHERE state='${result[0].state}' and city='${result[0].city}' and accept=1`
         const query = db.query(sql,(err,result)=>{
             console.log(result);
             res.send(result)
