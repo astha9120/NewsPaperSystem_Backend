@@ -44,6 +44,9 @@ const customerGet = (req,res) => {
 
 const customerPost = async(req, res) => {
     
+    console.log(
+"in post "
+    )
     
     let data = {
             c_id:parseInt(req.body.id),
@@ -58,9 +61,10 @@ const customerPost = async(req, res) => {
             if(err) throw err;
     })
 
-   
+   console.log(`REQUEST`)
+   console.log(req.body)
     let o_id;
-    const sql1 = `SELECT * FROM orders WHERE c_id=${req.body.id} AND scrap_service=${req.body.scrap} AND bill=${req.body.bill} AND bill_status=${req.body.billstatus}  AND  date='${req.body.date}'`
+    const sql1 = `SELECT * FROM orders WHERE c_id=${parseInt(req.body.id)} AND scrap_service=${req.body.scrap} AND bill_status=${req.body.billstatus}  AND  date='${req.body.date}'`
 
     // const sql1 = `SELECT o_id FROM orders WHERE c_id=${req.body.id} AND scrap_service=1 AND bill=${req.body.bill} AND bill_status=1 AND  date='2022-03-22'`
     const query1 = db.query(sql1,(err,result)=>{
