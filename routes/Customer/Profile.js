@@ -36,7 +36,7 @@ function distance(lat1, lon1, lat2, lon2) {
 
 const customerGet = (req,res) => {
     const id = parseInt(req.params.id);
-    const sql = `SELECT state,city,area,address,phoneno,name FROM customer where c_id=${id}`;
+    const sql = `SELECT state,city,area,address,phoneno,name,latitude,longitude FROM customer where c_id=${id}`;
     const query = db.query(sql,(err,result)=>{
         console.log(id);
         if(err) throw err;
