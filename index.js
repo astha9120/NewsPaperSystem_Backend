@@ -37,10 +37,10 @@ app.use(cors({credentials: true, origin: true}) );
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-  });
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     next();
+//   });
 
 app.use('/',Login)
 app.use('/vendor/profile',VendorProfile)
