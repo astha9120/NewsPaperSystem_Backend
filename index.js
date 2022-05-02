@@ -28,12 +28,12 @@ const Ndblist = require("./routes/vendor/Ndblist")
 const app = express();
 
 
-const corsOptions ={
-    origin:'*', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
-app.use(cors(corsOptions));
+// const corsOptions ={
+//     Access-Control-Allow-Origin-credentials:true,
+//     credentials:true,            //access-control-allow-credentials:true
+//     optionSuccessStatus:200
+// }
+app.use(cors({credentials: true, origin: true}) );
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
