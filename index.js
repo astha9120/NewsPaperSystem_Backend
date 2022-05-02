@@ -33,7 +33,7 @@ const app = express();
 //     credentials:true,            //access-control-allow-credentials:true
 //     optionSuccessStatus:200
 // }
-app.use(cors({credentials: true, origin: true}) );
+app.use(cors({origin:"*"}))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
