@@ -26,6 +26,7 @@ const Customerlist = require("./routes/Ndb/Customerlist")
 const Ndblist = require("./routes/vendor/Ndblist")
 
 const app = express();
+const PORT = 4000;
 
 
 // const corsOptions ={
@@ -64,6 +65,6 @@ app.use('/admin/support',Support_admin)
 app.use('/admin/ndblist',ndblist_admin)
 app.use('/admin/vendorlist',vendorlist_admin)
 
-app.listen('4000',()=>{
+app.listen(process.env.PORT || PORT,()=>{
     console.log("Server Started")
 })
