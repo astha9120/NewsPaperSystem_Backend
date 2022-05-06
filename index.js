@@ -10,7 +10,7 @@ const vendorlist_admin = require("./routes/Admin/Vendorlist")
 const Login = require("./routes/Login")
 
 
-const ndbProfile = require("./routes/Ndb/ndbprofile")
+const ndbProfile = require("./routes/Ndb/ndbProfile")
 const VendorProfile = require("./routes/Vendor/VendorProfile")
 const News = require("./routes/Vendor/News")
 const Vendorlist = require("./routes/Ndb/Vendorlist")
@@ -48,9 +48,9 @@ app.use('/vendor/profile',VendorProfile)
 app.use('/vendor/addnews',News)
 app.use('/vendor/ndblist',Ndblist)
 
-app.use('/Ndb/profile',ndbProfile)
-app.use('/Ndb/vendorlist',Vendorlist)
-app.use('/Ndb/billcollection',BillCollection)
+app.use('/ndb/profile',ndbProfile)
+app.use('/ndb/vendorlist',Vendorlist)
+app.use('/ndb/billcollection',BillCollection)
 
 app.use('/customer/support',Support)
 app.use('/customer/profile',profile)
@@ -59,12 +59,12 @@ app.use('/customer/profilenext',profileNext)
 app.use('/customer/bill',Bill)
 app.use('/customer/pastorder',PastOrder)
 app.use('/customer/getorder',GetOrder)
-app.use('/Ndb/customerlist',Customerlist)
+app.use('/ndb/customerlist',Customerlist)
 
 app.use('/admin/support',Support_admin)
 app.use('/admin/ndblist',ndblist_admin)
 app.use('/admin/vendorlist',vendorlist_admin)
 
-app.listen(process.env.PORT || PORT,()=>{
+app.listen(process.env.PORT || '5000',()=>{
     console.log("Server Started")
 })
