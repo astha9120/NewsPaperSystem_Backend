@@ -26,7 +26,7 @@ const Customerlist = require("./routes/Ndb/Customerlist")
 const Ndblist = require("./routes/vendor/Ndblist")
 
 const app = express();
-const PORT = 4000;
+const PORT = 5000;
 
 
 // const corsOptions ={
@@ -48,9 +48,9 @@ app.use('/vendor/profile',VendorProfile)
 app.use('/vendor/addnews',News)
 app.use('/vendor/ndblist',Ndblist)
 
-app.use('/ndb/profile',ndbProfile)
-app.use('/ndb/vendorlist',Vendorlist)
-app.use('/ndb/billcollection',BillCollection)
+app.use('/Ndb/profile',ndbProfile)
+app.use('/Ndb/vendorlist',Vendorlist)
+app.use('/Ndb/billcollection',BillCollection)
 
 app.use('/customer/support',Support)
 app.use('/customer/profile',profile)
@@ -59,7 +59,7 @@ app.use('/customer/profilenext',profileNext)
 app.use('/customer/bill',Bill)
 app.use('/customer/pastorder',PastOrder)
 app.use('/customer/getorder',GetOrder)
-app.use('/ndb/customerlist',Customerlist)
+app.use('/Ndb/customerlist',Customerlist)
 
 app.use('/admin/support',Support_admin)
 app.use('/admin/ndblist',ndblist_admin)
