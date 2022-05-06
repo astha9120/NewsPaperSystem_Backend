@@ -28,9 +28,8 @@ const pool  = new Pool({
   }
 });
 
-const db = pool.connect();
 
-module.exports = db;
+module.exports = pool;
  
 
 
