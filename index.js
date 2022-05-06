@@ -23,7 +23,7 @@ const BillCollection = require("./routes/Ndb/BillCollection")
 const PastOrder = require("./routes/Customer/PastOrder")
 const GetOrder = require("./routes/Customer/GetOrder")
 const Customerlist = require("./routes/Ndb/Customerlist")
-const Ndblist = require("./routes/vendor/Ndblist")
+const Ndblist = require("./routes/Vendor/Ndblist")
 
 const app = express();
 const PORT = 5000;
