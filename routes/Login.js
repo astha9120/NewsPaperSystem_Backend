@@ -6,7 +6,7 @@ const db = require('./db')
 const SignIn = (req,res)=>{
     console.log(req.body);
     // const sql = `SELECT * FROM ${req.body.user} WHERE email='${req.body.email}' and password='${req.body.password}'`
-    const sql = `SELECT * FROM customer WHERE email=$1 and password=$2`
+    const sql = `SELECT * FROM ${req.body.user} WHERE email=$1 and password=$2`
     const query = db.query(sql,[req.body.email,req.body.password],(err,result)=>{
         if(err){
             console.log(err)
