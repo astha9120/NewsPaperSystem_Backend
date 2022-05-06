@@ -22,14 +22,15 @@
 const Pool = require("pg").Pool;
 
 const pool  = new Pool({
-    user : "postgres",
-    password:"maulina",
-    host:"localhost",
-    port:5432,
-    database:"newsdaily" 
+    connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
-module.exports = pool;
+const db = pool.connect();
+
+module.exports = db;
  
 
 
