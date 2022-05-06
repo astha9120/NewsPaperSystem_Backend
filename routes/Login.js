@@ -5,22 +5,22 @@ const db = require('./db')
 
 const SignIn = (req,res)=>{
     console.log(req.body);
-    // const sql = `SELECT * FROM ${req.body.user} WHERE email='${req.body.email}' and password='${req.body.password}'`
-    const sql = `SELECT * FROM ${req.body.user} WHERE email=$1 and password=$2`
-    const query = db.query(sql,[req.body.email,req.body.password],(err,result)=>{
+     const sql = `SELECT * FROM ${req.body.user} WHERE email='${req.body.email}' and password='${req.body.password}'`
+    //const sql = `SELECT * FROM ${req.body.user} WHERE email=${} and password=$2`
+    const query = db.query(sql,(err,result)=>{
         if(err){
             console.log(err)
             res.send("error")
         }
         else{
-            console.log(result.rows);
+            console.log(result);
             if(result.rows[0]){
                 if(req.body.user==="customer")
-                    res.send(`${result.rows[0].c_id}`)
+                    res.send(`${result[0].c_id}`)
                 else if(req.body.user==="ndb")
-                    res.send(`${result.rows[0].ndb_id}`)
+                    res.send(`${result[0].ndb_id}`)
                 else if(req.body.user==="vendor")
-                    res.send(`${result.rows[0].v_id}`)
+                    res.send(`${result[0].v_id}`)
             }
                 
             else
