@@ -10,7 +10,7 @@ const vendorlist_admin = require("./routes/Admin/Vendorlist")
 const Login = require("./routes/Login")
 
 
-const ndbProfile = require("./routes/Ndb/ndbprofile")
+const ndbProfile = require("./routes/Ndb/ndbProfile")
 const VendorProfile = require("./routes/Vendor/VendorProfile")
 const News = require("./routes/Vendor/News")
 const Vendorlist = require("./routes/Ndb/Vendorlist")
@@ -23,7 +23,7 @@ const BillCollection = require("./routes/Ndb/BillCollection")
 const PastOrder = require("./routes/Customer/PastOrder")
 const GetOrder = require("./routes/Customer/GetOrder")
 const Customerlist = require("./routes/Ndb/Customerlist")
-const Ndblist = require("./routes/vendor/Ndblist")
+const Ndblist = require("./routes/Vendor/Ndblist")
 
 const app = express();
 const PORT = 4000;
