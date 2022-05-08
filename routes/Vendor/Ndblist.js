@@ -5,7 +5,9 @@ const db = require('../db');
 const GetQuantity = (req,res)=>{
     const sql = `SELECt ndb_id FROM ndb WHERE v_id=${req.params.id}`
     const query = db.query(sql,(err,result)=>{
-        
+        if(err)
+            res.status(400).send("error")
+
         const val = result.map(e=>e.ndb_id)
        // console.log("ids")
        // console.log(val)
@@ -20,6 +22,9 @@ const GetQuantity = (req,res)=>{
         WHERE ndb_id in (${val})
         GROUP BY n_id `
         const query = db.query(sql1,(err,result1)=>{
+            if(err)
+                res.status(400).send("error")
+
            // console.log("news quantitty")
            // console.log(result1)
             res.send(result1)
@@ -33,8 +38,8 @@ const GetNdb = (req,res)=>{
     
     const sql = `SELECT name,ndb_id FROM ndb WHERE v_id=${id}`
     const query = db.query(sql,(err,result)=>{
-        if(err) throw err;
-            
+            if(err)
+                res.status(400).send("error")
             //console.log("ids")
             //console.log(result);
             const ids = result.map(e=>e.ndb_id)
@@ -51,6 +56,9 @@ const GetNdb = (req,res)=>{
                 //console.log(result2)
                 const sql_q = `SELECT charge FROM vendor where v_id=${id}`
                 const w = db.query(sql_q,(err,result_4)=>{
+                    if(err)
+                        res.status(400).send("error")
+
                     let fi_res=[],temp=[];
                     let fi_pr =[],temp_p=0;
                         
@@ -97,6 +105,9 @@ const GetNdb = (req,res)=>{
 const GetCharge = (req,res)=>{
     const sql = `SELECT charge FROM vendor where v_id=${req.params.id}`
     const q = db.query(sql,(err,result)=>{
+        if(err)
+            res.status(400).send("error")
+
         res.send(result)
     })
 }
