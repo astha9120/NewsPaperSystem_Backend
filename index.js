@@ -29,19 +29,11 @@ const app = express();
 const PORT = 5000;
 
 
-// const corsOptions ={
-//     Access-Control-Allow-Origin-credentials:true,
-//     credentials:true,            //access-control-allow-credentials:true
-//     optionSuccessStatus:200
-// }
 app.use(cors({origin:"*",credentials:true}))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     next();
-//   });
+
 
 app.use('/',Login)
 app.use('/vendor/profile',VendorProfile)

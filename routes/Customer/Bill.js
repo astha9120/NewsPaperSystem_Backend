@@ -1,7 +1,96 @@
-const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+
+const Resubscribe = (req,res)=>{
+    const sql = `select * from orders where o_id = ${req.params.o_id}`
+    const q = db.query(sql,(err,result)=>{
+        var someDate = new Date(result[0].date);
+        var fi_d = new Date( someDate.setDate(someDate.getDate() + 32) );
+        let data = {
+            c_id:result[0].c_id,
+            scrap_service:result[0].scrap_service,
+            bill:result[0].bill,
+            bill_status:0,
+            subscribe:1,
+            date: fi_d
+        }
+        const sql2 = `INSERT INTO orders SET ?`
+        const q2 = db.query(sql2,data,(err,result2)=>{
+            if(err) throw err;
+            
+            var month = fi_d.getUTCMonth()+1; //months from 1-12
+            var day = fi_d.getUTCDate()+1;
+            var year = fi_d.getUTCFullYear();
+            if(month<10){
+                month = '0'+month.toString()
+            }            
+            if(day<10){
+                day='0'+day.toString();
+            }  
+            
+            newdate = year + "-" + month + "-" + day;
+            let o_id;
+            const sql3 = `SELECT * FROM orders WHERE c_id=${data.c_id} AND scrap_service=${data.scrap_service} 
+            AND bill_status=0 AND  date='${newdate}' AND subscribe=1`
+            const q3 = db.query(sql3,(err,result3)=>{
+                if(err) throw err;
+                else{
+                    console.log("result after order")
+                    o_id = result3[0].o_id;
+                    console.log(`oid::${o_id}`);
+                
+                    const sql4 = `SELECT n_id FROM order_news WHERE o_id = ${req.params.o_id}`
+                    const q4 = db.query(sql4,(err,result4)=>{
+                        console.log(result4)
+                        const ids = result4.map(e=>[o_id,e.n_id])
+                        console.log(ids)
+                        const sql5 = `INSERT INTO order_news VALUES ? `
+                        const q5 = db.query(sql5,[ids],(err,result5)=>{
+                                if(err) throw err;
+
+                                const sql6 = `SELECT ndb_id FROM customer WHERE c_id=${req.params.c_id}`
+                                const q6 = db.query(sql6,(err,result6)=>{
+                                    console.log("ndb")
+                                    console.log(result6[0].ndb_id)
+                                    result4.map((e)=>{
+                                        console.log(e.n_id)
+                                        const sql_1 = `SELECT count from ndb_list WHERE ndb_id=${result6[0].ndb_id} and n_id=${e.n_id}`
+                                        const q_1  = db.query(sql_1,(err,result7)=>{
+                                            console.log("idsss")
+                                            console.log(result7)
+                                            if(result7.length===0){
+                                                //INSERT
+                                                const sql_3 = `INSERT INTO ndb_list VALUES (${result6[0].ndb_id},${e.n_id},1)`
+                                                const query_4 = db.query(sql_3,(err,result8)=>{
+                                                        console.log('insert')
+                                                        console.log(result8)
+                                                })
+                                            }
+                                            else{
+                                                const sql_2 = `UPDATE ndb_list  SET count = count+1 where ndb_id =${result6[0].ndb_id} and n_id=${e.n_id}`
+                                                const q_2 = db.query(sql_2,(err,result9)=>{
+                                                    console.log("resss")
+                                                    console.log(result9)
+                                                })
+                                            }
+                                        })
+                                    })
+                            
+                                })
+                                //console.log(result)
+                               res.send("success")
+                        })
+                    })  
+                }
+            })
+        })
+
+            
+        
+    })
+    
+}
 
 const GetCustomer = (req,res)=>{
     const sql = `SELECT customer.name,customer.address,customer.area,orders.date,orders.scrap_service,orders.o_id,orders.bill_status
@@ -75,5 +164,8 @@ router.route('/:id')
 
 router.route('/:c_id/:o_id')
 .get(BillInfo)
+
+router.route('/:c_id/:o_id')
+.post(Resubscribe)
 
 module.exports = router;
