@@ -29,7 +29,9 @@ const ndbGet = (req,res) => {
     const sql = `SELECT state,city,area,address,charge,phoneno,name,accept FROM ndb where ndb_id=${id}`;
     const query = db.query(sql,(err,result)=>{
         console.log(id);
-        if(err) throw err;
+        if(err) 
+            res.status(400).send("error")
+
         // res.json(query);
        res.send(result);
        console.log(result)
@@ -56,7 +58,8 @@ const ndbPost = (req, res) => {
     const id = parseInt(req.params.id);
         const sql  = `SELECT v_id,latitude,longitude from vendor where accept=1`
         const query =db.query(sql,(err,result)=>{
-            if(err) throw err;
+            if(err) 
+                res.status(400).send("error")
             let i,allocate_vendorid=-1 ,minDis=Number.MAX_VALUE;
             for(i=0;i<result.length;i++){
                 let r =  distance(result[i].latitude,result[i].longitude,req.body.latitude,req.body.longitude)
@@ -76,7 +79,9 @@ const ndbPost = (req, res) => {
             data = { ...data, v_id:allocate_vendorid }
             const sql = `UPDATE ndb SET ? WHERE ndb_id=${id}`;
             const query = db.query(sql,data,(err,result)=>{
-                if(err) throw err;
+                if(err)
+                    res.status(400).send("error")
+
                 console.log(result)
                 res.send("yes");
             })

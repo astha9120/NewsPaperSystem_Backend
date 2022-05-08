@@ -2,25 +2,15 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-// const GetQuantity = (req,res)=>{
-//     const sql = `SELECT newspaper.name , ndb_list.count 
-//                 from ndb_list 
-//                 inner join newspaper 
-//                 using (n_id) where ndb_id=${req.params.id}`
-//     const query = db.query(sql,(err,result)=>{
-//         console.log(result)
-//         res.send(result)
-//     })
-    
-
-// }
 
 const GetCustomer = (req,res)=>{
     const id = req.params.id;
     
     const sql = `SELECT c_id,name,address,area FROM customer WHERE ndb_id=${id}`
     const query = db.query(sql,(err,result)=>{
-        if(err) throw err;
+            if(err) 
+                res.status(400).send("error")
+
             console.log(result);
             if(result.length==0){
                 res.send([])
@@ -32,6 +22,9 @@ const GetCustomer = (req,res)=>{
                             inner join newspaper using(n_id) where c_id in (${ids}) and subscribe=1`
     
             const q = db.query(sql2,(err,result2)=>{
+                if(err)
+                    res.status(400).send("error")
+
                 console.log(result2)
                 
                     if(result2.length==0){
@@ -76,6 +69,9 @@ const SendNoti = (req,res)=>{
     console.log(list)
     const sql = `UPDATE customer SET log=1 WHERE ndb_id=${id} and c_id in (${list})`
     const q = db.query(sql,(err,result)=>{
+        if(err)
+            res.status(400).send("error")
+
         console.log(result)
         res.send("Yes")
     })

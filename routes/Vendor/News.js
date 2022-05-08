@@ -7,8 +7,7 @@ const AddNewsPaper = (req,res)=>{
     const sql = 'SELECT n_id,name FROM NEWSPAPER';
     const query = db.query(sql,(err,result)=>{
         if(err){
-            console.log(err);
-            res.send("error")
+            res.status(400).send("error")
         }
         else{
             //console.log(result)
@@ -26,7 +25,9 @@ const Service = async(req,res)=>{
     //console.log(data);
     const sql = `INSERT INTO service VALUES ?`
     const query = db.query(sql,[data],(err,result)=>{
-            if(err) throw err;
+            if(err) 
+                res.status(400).send("error")
+
             //console.log(result)
             res.send("success")
     })
@@ -42,6 +43,9 @@ const NewsFromVendor = (req,res)=>{
         where service.v_id=${id}`
     const query = db.query(sql,(err,result)=>{
         // console.log(result)
+        if(err)
+            res.status(400).send("error")
+
         if(result[0])
             res.send(result)
         else    

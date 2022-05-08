@@ -9,7 +9,8 @@ const Bill = (req,res)=>{
                 where orders.bill_status=0 and customer.ndb_id=${req.params.id}
                 order by latitude,longitude`
     const query = db.query(sql,(err,result)=>{
-        if(err) throw err
+        if(err) 
+            res.status(400).send("error")
         res.send(result)
     })
 }
@@ -19,7 +20,8 @@ const updateStat = (req,res)=>{
     console.log(date)
     const sql = `update orders set bill_status = 1 , collection_date = '${date}' where o_id=${req.params.id};`
     const query = db.query(sql,(err,result)=>{
-        if(err) throw err;
+        if(err) 
+            res.status(400).send("error")
         console.log("update")
         console.log(result);
         res.send("yes")
@@ -38,6 +40,8 @@ const BillCollected = (req,res)=>{
                  and bill_status = true
                  and collection_date >= '${date}' `
     const q = db.query(sql,(err,result)=>{
+        if(err)  
+            res.status(400).send("error")
         console.log(result)
         res.send(result)
     })    
