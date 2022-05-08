@@ -12,7 +12,9 @@ const NewsPaper = (req,res)=>{
         const sql = `select distinct(newspaper.name) , newspaper.description,newspaper.n_id,newspaper.price,newspaper.scrap_price from newspaper
         inner join service using (n_id) inner join vendor using (v_id) where vendor.state="${state}" and vendor.city="${city}"`
         const query =  db.query(sql,(err,result)=>{
-            if(err) throw err;
+            if(err){
+                res.status(400).send("error")
+            }
             res.send(result)
         })
     })
