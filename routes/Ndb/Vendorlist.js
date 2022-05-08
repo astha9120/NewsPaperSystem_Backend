@@ -68,7 +68,7 @@ const GetQuantity = (req,res)=>{
                         res.status(400).send("error")
                     console.log(result3)
                     result3.map(e=>{
-                        e.price = (e.price+charge) * e.count
+                        e.price = ((e.price+charge) * e.count).toPrecision(3)
                     })
                     res.send(result3)
                 })

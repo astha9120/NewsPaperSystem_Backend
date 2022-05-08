@@ -5,8 +5,9 @@ const db = require('../db');
 const Resubscribe = (req,res)=>{
     const sql = `select * from orders where o_id = ${req.params.o_id}`
     const q = db.query(sql,(err,result)=>{
-        var someDate = new Date(result[0].date);
-        var fi_d = new Date( someDate.setDate(someDate.getDate() + 32) );
+     
+        var fi_d = new Date();
+        console.log(fi_d);
         let data = {
             c_id:result[0].c_id,
             scrap_service:result[0].scrap_service,
@@ -17,7 +18,11 @@ const Resubscribe = (req,res)=>{
         }
         const sql2 = `INSERT INTO orders SET ?`
         const q2 = db.query(sql2,data,(err,result2)=>{
-            if(err) throw err;
+            if(err) 
+            {
+            console.log(err)
+            res.send("error")
+            }
             
             var month = fi_d.getUTCMonth()+1; //months from 1-12
             var day = fi_d.getUTCDate()+1;
@@ -34,7 +39,10 @@ const Resubscribe = (req,res)=>{
             const sql3 = `SELECT * FROM orders WHERE c_id=${data.c_id} AND scrap_service=${data.scrap_service} 
             AND bill_status=0 AND  date='${newdate}' AND subscribe=1`
             const q3 = db.query(sql3,(err,result3)=>{
-                if(err) throw err;
+                if(err) {
+                    console.log(err)
+                    res.send("error")
+                }
                 else{
                     console.log("result after order")
                     o_id = result3[0].o_id;
@@ -47,7 +55,8 @@ const Resubscribe = (req,res)=>{
                         console.log(ids)
                         const sql5 = `INSERT INTO order_news VALUES ? `
                         const q5 = db.query(sql5,[ids],(err,result5)=>{
-                                if(err) throw err;
+                                if(err) { console.log(err)
+                                    res.send("error")};
 
                                 const sql6 = `SELECT ndb_id FROM customer WHERE c_id=${req.params.c_id}`
                                 const q6 = db.query(sql6,(err,result6)=>{
@@ -93,7 +102,7 @@ const Resubscribe = (req,res)=>{
 }
 
 const GetCustomer = (req,res)=>{
-    const sql = `SELECT customer.name,customer.address,customer.area,orders.date,orders.scrap_service,orders.o_id,orders.bill_status
+    const sql = `SELECT customer.name,customer.address,customer.area,orders.date,orders.scrap_service,orders.o_id,orders.bill_status,orders.subscribe
                 FROM customer
                 INNER JOIN orders
                 USING (c_id)
