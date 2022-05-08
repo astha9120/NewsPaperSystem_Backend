@@ -4,7 +4,7 @@ const db = require('../db');
 
 
 const Bill = (req,res)=>{
-    const sql = `select customer.name,customer.address,customer.area,orders.bill,orders.bill_status,orders.o_id from customer 
+    const sql = `select customer.name,customer.address,customer.area,orders.bill,orders.bill_status,orders.o_id,orders.date from customer 
                 inner join orders using(c_id) 
                 where orders.bill_status=0 and customer.ndb_id=${req.params.id}
                 order by latitude,longitude`

@@ -55,7 +55,7 @@ const GetQuantity = (req,res)=>{
                 const q3 = db.query(sql3,(err,result3)=>{
                     console.log(result3)
                     result3.map(e=>{
-                        e.price = (e.price+charge) * e.count
+                        e.price = ((e.price+charge) * e.count).toPrecision(3)
                     })
                     res.send(result3)
                 })

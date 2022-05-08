@@ -14,7 +14,7 @@ const SignIn = (req,res)=>{
         }
         else{
             console.log(result);
-            if(result.rows[0]){
+            if(result[0]){
                 if(req.body.user==="customer")
                     res.send(`${result[0].c_id}`)
                 else if(req.body.user==="ndb")
