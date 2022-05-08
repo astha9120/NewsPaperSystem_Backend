@@ -44,9 +44,7 @@ const customerGet = (req,res) => {
 
 const customerPost = async(req, res) => {
     
-    console.log(
-"in post "
-    )
+    console.log("in post ")
     
     let data = {
             c_id:parseInt(req.body.id),
