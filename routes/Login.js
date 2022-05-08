@@ -9,8 +9,8 @@ const SignIn = (req,res)=>{
     //const sql = `SELECT * FROM ${req.body.user} WHERE email=${} and password=$2`
     const query = db.query(sql,(err,result)=>{
         if(err){
-            console.log(err)
-            res.send("error")
+            res.status(400).send("error")
+
         }
         else{
             console.log(result);
@@ -40,8 +40,8 @@ const SignUp = (req,res)=>{
         const sql = `INSERT INTO ${req.body.user} SET ?`
         const query = db.query(sql,data,(err,result)=>{
             if(err){
-                console.log(err)
-                res.send("error")
+                res.status(400).send("error")
+
             }
             else{
                 res.send(`created`);

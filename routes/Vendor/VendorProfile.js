@@ -12,7 +12,9 @@ const VendorGet = (req,res) => {
     const sql = `SELECT state,city,area,address,charge,phoneno,name,accept FROM vendor where v_id=${id}`;
     const query = db.query(sql,(err,result)=>{
         console.log(id);
-        if(err) throw err;
+        if(err) 
+            res.status(400).send("error")
+
         // res.json(query);
        res.send(result);
        console.log(result)
@@ -37,7 +39,9 @@ const VendorPost = (req, res) => {
     const id = parseInt(req.params.id);
     const sql = `UPDATE vendor SET ? WHERE v_id=${id}`;
         const query = db.query(sql,data,(err,result)=>{
-            if(err) throw err;
+            if(err) 
+                res.status(400).send("error")
+
             res.send("yes");
             console.log(result)
             console.log('inserted'); 
