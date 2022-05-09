@@ -24,6 +24,8 @@ const PastOrder = require("./routes/Customer/PastOrder")
 const GetOrder = require("./routes/Customer/GetOrder")
 const Customerlist = require("./routes/Ndb/Customerlist")
 const Ndblist = require("./routes/Vendor/Ndblist")
+const Getndb = require("./routes/Customer/Getndb")
+
 
 const app = express();
 const PORT = 5000;
@@ -51,6 +53,8 @@ app.use('/customer/profilenext',profileNext)
 app.use('/customer/bill',Bill)
 app.use('/customer/pastorder',PastOrder)
 app.use('/customer/getorder',GetOrder)
+app.use('/customer/getndb',Getndb)
+
 app.use('/ndb/customerlist',Customerlist)
 
 app.use('/admin/support',Support_admin)
