@@ -8,9 +8,10 @@ const GetQuantity = (req,res)=>{
         if(err)
             res.status(400).send("error")
 
+        
         const val = result.map(e=>e.ndb_id)
-       // console.log("ids")
-       // console.log(val)
+        console.log("ids")
+        console.log(val)
         if(val.length==0){
             res.send([])
             return;
@@ -25,8 +26,8 @@ const GetQuantity = (req,res)=>{
             if(err)
                 res.status(400).send("error")
 
-           // console.log("news quantitty")
-           // console.log(result1)
+            console.log("news quantitty")
+            console.log(result1)
             res.send(result1)
         })
     
@@ -40,9 +41,10 @@ const GetNdb = (req,res)=>{
     const query = db.query(sql,(err,result)=>{
             if(err)
                 res.status(400).send("error")
-            //console.log("ids")
-            //console.log(result);
+           
             const ids = result.map(e=>e.ndb_id)
+             console.log("g ids")
+            console.log(ids);
             if(ids.length==0){
                 res.send([])
                 return;
@@ -107,7 +109,7 @@ const GetCharge = (req,res)=>{
     const q = db.query(sql,(err,result)=>{
         if(err)
             res.status(400).send("error")
-
+        console.log(result)
         res.send(result)
     })
 }
