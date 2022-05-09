@@ -10,7 +10,7 @@ const PostSupport = (req,res)=>{
     const query = db.query(sql,(err,result)=>{
         if(err){
             console.log(err)
-            res.send("err");
+            res.status(400).send("error")
             return;
         }
         console.log(result);

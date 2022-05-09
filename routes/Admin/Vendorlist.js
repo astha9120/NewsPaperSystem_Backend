@@ -5,7 +5,9 @@ const db = require('../db');
 const Vendorlist = (req,res)=>{
     const sql = `SELECT name,v_id,address,area,city,state,phoneno,charge,accept from vendor`
     const query= db.query(sql,(err,result)=>{
-        if(err) throw err;
+        if(err) {
+            res.status(400).send("error")
+            throw err;}
         console.log(result)
       
             res.send(result)

@@ -35,7 +35,10 @@ const customerGet = (req,res) => {
                 `;
     const query = db.query(sql,(err,result)=>{
        
-        if(err) throw err;
+        if(err) {
+            res.status(400).send("error")
+            throw err
+        };
        res.send(result);
     })
 
@@ -56,7 +59,10 @@ const customerPost = async(req, res) => {
     }
     const sql = `INSERT INTO orders SET ?`
     const query = db.query(sql,data,(err,result)=>{
-            if(err) throw err;
+            if(err){ 
+                res.status(400).send("error")
+                throw err
+            };
     })
 
    console.log(`REQUEST`)
@@ -66,7 +72,10 @@ const customerPost = async(req, res) => {
 
     // const sql1 = `SELECT o_id FROM orders WHERE c_id=${req.body.id} AND scrap_service=1 AND bill=${req.body.bill} AND bill_status=1 AND  date='2022-03-22'`
     const query1 = db.query(sql1,(err,result)=>{
-        if(err) throw err;
+        if(err) {
+            res.status(400).send("error");
+            throw err;
+        }
         else{
             
             o_id = result[0].o_id;
@@ -78,7 +87,9 @@ const customerPost = async(req, res) => {
             
               const sql2 = `INSERT INTO order_news VALUES ? `
               const query2 = db.query(sql2,[data1],(err,result)=>{
-                    if(err) throw err;
+                    if(err) {
+                        res.status(400).send("error");
+                        throw err;}
                     //console.log(result)
                     res.send("success")
             })

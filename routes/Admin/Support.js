@@ -5,7 +5,10 @@ const db = require('../db');
 const Support = (req,res)=>{
     const sql = `SELECT issue_id,suggestion,name,email from issue`
     const query= db.query(sql,(err,result)=>{
-        if(err) throw err;
+        if(err){ 
+            res.status(400).send("error");
+            throw err;
+        }
         console.log(result)
       
             res.send(result)
@@ -18,7 +21,9 @@ const Unsubscribe = (req,res)=>{
     let Nowdate =  new Date()
     const sql = `SELECT date,o_id,c_id from orders where subscribe=1`
     const query = db.query(sql,(err,result)=>{
-        if(err) throw err;
+        if(err){
+            res.status(400).send("error");
+            throw err;}
         //console.log(result);
         if(result.length==0)
         {
