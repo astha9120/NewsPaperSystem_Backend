@@ -39,7 +39,10 @@ const customerGet = (req,res) => {
     const sql = `SELECT state,city,area,address,phoneno,name,latitude,longitude FROM customer where c_id=${id}`;
     const query = db.query(sql,(err,result)=>{
         console.log(id);
-        if(err) throw err;
+        if(err) {
+            res.status(400).send("error")    
+            throw err
+        };
         // res.json(query);
        res.send(result);
        console.log(result)
@@ -65,7 +68,11 @@ const customerPost = (req, res) => {
     const id = parseInt(req.params.id);
         const sql  = `SELECT ndb_id,latitude,longitude,work_lat,work_long from ndb where v_id is not null and accept=1`
         const query =db.query(sql,(err,result)=>{
-            if(err) throw err;
+            if(err){ 
+                
+                res.status(400).send("error")
+                throw err
+            };
             let i,allocate_ndbid=-1 ,minDis=Number.MAX_VALUE;
             for(i=0;i<result.length;i++){
                 if(result[i].work_lat!=null && result[i].work_long!=null){
@@ -78,7 +85,9 @@ const customerPost = (req, res) => {
                         data = { ...data, ndb_id:allocate_ndbid }
                         const sql = `UPDATE customer SET ? WHERE c_id=${id}`;
                         const query = db.query(sql,data,(err,result)=>{
-                            if(err) throw err;
+                            if(err){ 
+                                res.status(400).send("error")
+                                throw err};
                             console.log(result)
                             res.send("yes");
                             console.log("within work area");
@@ -112,7 +121,10 @@ const customerPost = (req, res) => {
             data = {...data,ndb_id:allocate_ndbid}
             const sql = `UPDATE customer SET ? WHERE c_id=${id}`;
             const query = db.query(sql,data,(err,result)=>{
-                if(err) throw err;
+                if(err){ 
+                    res.status(400).send("error")
+                    throw err
+                };
                 console.log("values   : "+req.body.latitude+" "+req.body.longitude+" "+allocate_ndbid)
                 const sql = `UPDATE ndb SET work_lat = ${req.body.latitude},work_long = ${req.body.longitude} 
                  where ndb_id=${allocate_ndbid}`

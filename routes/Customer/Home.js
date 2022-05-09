@@ -5,7 +5,11 @@ const db = require('../db');
 const NewsPaper = (req,res)=>{
     const sql = `SELECT state,city from customer where c_id=${req.params.id}`
     const query= db.query(sql,(err,result)=>{
-        if(err) throw err;
+        if(err) 
+        {
+            res.status(400).send("error");
+            throw err
+        };
         console.log(result)
         let city = result[0].city
         let state = result[0].state

@@ -20,8 +20,9 @@ const Resubscribe = (req,res)=>{
         const q2 = db.query(sql2,data,(err,result2)=>{
             if(err) 
             {
+                
             console.log(err)
-            res.send("error")
+            res.status(400).send("error")
             }
             
             var month = fi_d.getUTCMonth()+1; //months from 1-12
@@ -41,7 +42,7 @@ const Resubscribe = (req,res)=>{
             const q3 = db.query(sql3,(err,result3)=>{
                 if(err) {
                     console.log(err)
-                    res.send("error")
+                    res.status(400).send("error")
                 }
                 else{
                     console.log("result after order")
@@ -56,7 +57,7 @@ const Resubscribe = (req,res)=>{
                         const sql5 = `INSERT INTO order_news VALUES ? `
                         const q5 = db.query(sql5,[ids],(err,result5)=>{
                                 if(err) { console.log(err)
-                                    res.send("error")};
+                                    res.status(400).send("error")};
 
                                 const sql6 = `SELECT ndb_id FROM customer WHERE c_id=${req.params.c_id}`
                                 const q6 = db.query(sql6,(err,result6)=>{
@@ -113,7 +114,7 @@ const GetCustomer = (req,res)=>{
     const query = db.query(sql,(err,result)=>{
         if(err) {
             console.log(err)
-            res.send("err")
+            res.status(400).send("error")
         }
         else{
             console.log(result)
@@ -131,17 +132,25 @@ const BillInfo = async(req,res)=>{
     //console.log(c_id,o_id)
 
     const q = db.query(`SELECT scrap_service FROM orders WHERE o_id=${o_id}`,(err,result)=>{
-        if(err) throw err;
+        if(err) 
+        {
+            res.status(400).send("error")
+            throw err};
         bool = result[0].scrap_service;
         //console.log("bool is : "+bool)
     })
     
     const query = db.query(`SELECT ndb_id FROM customer WHERE c_id=${c_id}`,(err,result)=>{
-            if(err) throw err;
+            if(err) {
+                res.status(400).send("error")
+                throw err};
             ndb_id = result[0].ndb_id;
             
             const query = db.query(`SELECT v_id,charge from ndb WHERE ndb_id=${ndb_id}`,(err,result)=>{
-                if(err) throw err;
+                if(err)
+                {
+                    res.status(400).send("error")
+                    throw err};
                 ndb_charge = result[0].charge;
                 v_id = result[0].v_id;
 
@@ -150,7 +159,9 @@ const BillInfo = async(req,res)=>{
                     const sql = `SELECT newspaper.name , newspaper.price,newspaper.scrap_price
                                     FROM newspaper INNER JOIN order_news USING (n_id) WHERE o_id=${o_id} `
                     const query = db.query(sql,(err,result)=>{
-                        if(err) throw err;
+                        if(err){ 
+                            res.status(400).send("error")
+                            throw err};
                         //console.log(result)
                         //console.log(`${ndb_id} ${ndb_charge} ${v_id} ${v_charge}`)
                         for(i=0;i<result.length;i++){
