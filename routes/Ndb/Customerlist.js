@@ -6,7 +6,7 @@ const db = require('../db');
 const GetCustomer = (req,res)=>{
     const id = req.params.id;
     
-    const sql = `SELECT c_id,name,address,area FROM customer WHERE ndb_id=${id}`
+    const sql = `SELECT c_id,name,address,area FROM customer INNER JOIN orders using (c_id) WHERE ndb_id=${id} AND subscribe=1`
     const query = db.query(sql,(err,result)=>{
             if(err) 
                 res.status(400).send("error")

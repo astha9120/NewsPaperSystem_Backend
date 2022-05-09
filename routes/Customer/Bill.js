@@ -3,10 +3,23 @@ const router = express.Router();
 const db = require('../db');
 
 const Resubscribe = (req,res)=>{
+    var fi_d = new Date();
+    var month = fi_d.getUTCMonth()+1; //months from 1-12
+    var day = fi_d.getUTCDate();
+    var year = fi_d.getUTCFullYear();
+    if(month<10){
+        month = '0'+month.toString()
+    }            
+    if(day<10){
+        day='0'+day.toString();
+    }  
+    
+    newdate = year + "-" + month + "-" + day;
+    console.log(newdate);
     const sql = `select * from orders where o_id = ${req.params.o_id}`
     const q = db.query(sql,(err,result)=>{
      
-        var fi_d = new Date();
+        
         console.log(fi_d);
         let data = {
             c_id:result[0].c_id,
@@ -16,6 +29,7 @@ const Resubscribe = (req,res)=>{
             subscribe:1,
             date: fi_d
         }
+        console.log(data);
         const sql2 = `INSERT INTO orders SET ?`
         const q2 = db.query(sql2,data,(err,result2)=>{
             if(err) 
@@ -25,17 +39,7 @@ const Resubscribe = (req,res)=>{
             res.status(400).send("error")
             }
             
-            var month = fi_d.getUTCMonth()+1; //months from 1-12
-            var day = fi_d.getUTCDate()+1;
-            var year = fi_d.getUTCFullYear();
-            if(month<10){
-                month = '0'+month.toString()
-            }            
-            if(day<10){
-                day='0'+day.toString();
-            }  
-            
-            newdate = year + "-" + month + "-" + day;
+          
             let o_id;
             const sql3 = `SELECT * FROM orders WHERE c_id=${data.c_id} AND scrap_service=${data.scrap_service} 
             AND bill_status=0 AND  date='${newdate}' AND subscribe=1`
