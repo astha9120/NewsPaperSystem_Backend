@@ -32,13 +32,15 @@ const GetNoti = (req,res)=>{
 
     let notifications = []
     const q = db.query(sql,(err,result)=>{
+        if(err) throw err
         console.log(result)
         if(result[0].log==1)
             notifications.push("Newspaper has been delivered")
         
         let flag_expired =0 ,flag_bill=0; 
         const sql2 = `SELECT date,bill_status FROM orders WHERE subscribe = 1 and c_id=${id} and log=1`
-        const q2 = db.query(sql2,(err,result2)=>{
+        const q2 = db.query(sql2,(err,result2)=>
+            {
             console.log(result2)
             result2.map(e=>{
                 //console.log(e.date)
